@@ -267,6 +267,12 @@ form {
 
 input[type="text"] {
 	margin-right: 1%;
+	width: 15%;
+	font-size: 1.4rem;
+}
+
+button {
+	font-size: 1.4rem;
 }
 
 button:hover,
