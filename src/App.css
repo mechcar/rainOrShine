@@ -266,8 +266,8 @@ form {
 }
 
 input[type="text"] {
-	margin-right: 1%;
-	width: 15%;
+	margin-right: 1.5rem;
+	width: 18rem;
 	font-size: 1.4rem;
 }
 
@@ -374,7 +374,7 @@ footer {
 		margin-top: 5%;
 	}
 	.subHeading {
-		margin: 2.5% 0;
+		margin: 3% 0;
 	}
 
 	.weatherCard {
