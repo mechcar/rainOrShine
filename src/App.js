@@ -130,7 +130,7 @@ function App() {
 				<div className="wrapper">
 					<h1>Rain or Shine?</h1>
 					<p>
-						Enter the name of a city to return some weather data and
+						Enter the name of a city, a postal code or a zip code to
 						see whether you should venture out your front door:
 					</p>
 				</div>
@@ -146,7 +146,7 @@ function App() {
 								onChange={handleChange}
 								value={userInput}
 								autoComplete="off"
-								placeholder="Search for a city..."
+								placeholder="Search here..."
 							/>
 							<button type="submit">Search</button>
 						</form>
