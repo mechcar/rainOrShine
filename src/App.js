@@ -1,4 +1,5 @@
 import "./App.css";
+import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MainWeatherCard from "./MainWeatherCard";
@@ -83,11 +84,23 @@ function App() {
 				key: apiKey,
 				q: targetCity,
 			},
-		}).then((res) => {
-			weatherObjectArray.push(res.data);
-			setWeatherData(weatherObjectArray);
-			setUserInput("");
-		});
+		})
+			.then((res) => {
+				weatherObjectArray.push(res.data);
+				setWeatherData(weatherObjectArray);
+				setUserInput("");
+			})
+			.catch(() => {
+				setUserInput("");
+				setSearchCity('Toronto');
+				Swal.fire({
+					title: "Error!",
+					text: "Unable to find that location. Please try again!",
+					icon: "error",
+					confirmButtonText: "OK",
+					confirmButtonColor: '#002442',
+				});
+			});
 	}, [searchCity]);
 
 	// Axios call for random weather cards
