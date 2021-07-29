@@ -92,13 +92,13 @@ function App() {
 			})
 			.catch(() => {
 				setUserInput("");
-				setSearchCity('Toronto');
+				setSearchCity("Toronto");
 				Swal.fire({
 					title: "Error!",
 					text: "Unable to find that location. Please try again!",
 					icon: "error",
 					confirmButtonText: "OK",
-					confirmButtonColor: '#002442',
+					confirmButtonColor: "#002442",
 				});
 			});
 	}, [searchCity]);
@@ -182,7 +182,16 @@ function App() {
 				</section>
 			</main>
 			<footer>
-				Created at <a href="https://junocollege.com/">Juno College</a>
+				<div className="footerContent">
+					<p>
+						Created at{" "}
+						<a href="https://junocollege.com/">Juno College of Technology</a>
+					</p>
+					<p>
+						Powered by{" "}
+						<a href="https://www.weatherapi.com/">Weather API</a>
+					</p>
+				</div>
 			</footer>
 		</div>
 	);

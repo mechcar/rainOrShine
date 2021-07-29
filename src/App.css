@@ -231,6 +231,7 @@ html {
 }
 
 body {
+	max-height: 100vh;
 	background-color: #8e9ea7;
 	text-align: center;
 	display: flex;
@@ -248,7 +249,7 @@ body {
 header {
 	background-color: #002442;
 	color: white;
-	padding: 2.5% 0;
+	padding: 1.5% 0;
 	width: 100%;
 }
 
@@ -366,7 +367,16 @@ button:focus {
 }
 
 footer {
-	margin: 2.5% 0;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	margin: 1% 0;
+}
+
+.footerContent {
+	width: 30rem;
+	display: flex;
+	justify-content: space-between;
 }
 
 
