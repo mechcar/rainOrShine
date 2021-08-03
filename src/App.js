@@ -124,7 +124,9 @@ function App() {
 				},
 			}).then((res) => {
 				randomWeatherObjectArray.push(res.data);
-				setRandomWeatherData(randomWeatherObjectArray);
+				if (randomWeatherObjectArray.length === randomlySelectedCities.length){
+					setRandomWeatherData(randomWeatherObjectArray);
+				}
 			});
 		});
 	}, [submitStatus]);
