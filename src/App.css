@@ -280,6 +280,7 @@ button:hover,
 button:focus {
 	background-color: #002442;
 	color: white;
+	cursor: pointer;
 }
 
 .subHeading,

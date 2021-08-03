@@ -1,3 +1,7 @@
+// Stretch goals for portfolio week
+// Add 3 day weather info from weather API
+// Add sports page with Route/Link using weather API sports JSON option
+
 import "./App.css";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
@@ -63,6 +67,7 @@ function App() {
 		return randomlySelectedCities;
 	};
 
+	// Handles input from keyboard into text search
 	const handleChange = (e) => {
 		setUserInput(e.target.value);
 	};
@@ -185,7 +190,9 @@ function App() {
 				<div className="footerContent">
 					<p>
 						Created at{" "}
-						<a href="https://junocollege.com/">Juno College of Technology</a>
+						<a href="https://junocollege.com/">
+							Juno College of Technology
+						</a>
 					</p>
 					<p>
 						Powered by{" "}
