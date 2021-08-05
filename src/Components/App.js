@@ -2,54 +2,29 @@
 // Add 3 day weather info from weather API
 // Add sports page with Route/Link using weather API sports JSON option
 
-import "./App.css";
+import "../../src/App.css";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MainWeatherCard from "./MainWeatherCard";
 import RandomWeatherCard from "./RandomWeatherCard";
+import randomCities from "../randomCities";
+import Form from "./Form";
 
 function App() {
+	// useState to track keystrokes
 	const [userInput, setUserInput] = useState("");
+	// useState to track location searched in text input
 	const [searchCity, setSearchCity] = useState("Toronto");
+	// useState to track when submit is hit, to repopulate the random weather cards
 	const [submitStatus, setSubmitStatus] = useState(false);
+	// useState to track the JSON object returned from the main search axios call
 	const [weatherData, setWeatherData] = useState([]);
+	// useState to track the JSON objects returned from the random weather cards
 	const [randomWeatherData, setRandomWeatherData] = useState([]);
 
+	// creates an array of 5 cities randomly selected from the imported array randomCities, which includes the 30 most populous cities in the world
 	const selectRandomCities = () => {
-		const randomCities = [
-			"Tokyo",
-			"Delhi",
-			"Shanghai",
-			"Sao Paulo",
-			"Mexico City",
-			"Cairo",
-			"Mumbai",
-			"Beijing",
-			"Dhaka",
-			"Osaka-Shi",
-			"New York",
-			"Karachi",
-			"Buenos Aires",
-			"Chongqing",
-			"Istanbul",
-			"Kolkata",
-			"Manila",
-			"Lagos",
-			"Rio de Janeiro",
-			"Tianjin",
-			"Kinshasa",
-			"Guangzhou",
-			"Los Angeles",
-			"Moscow",
-			"Shenzhen",
-			"Lahore",
-			"Bangalore",
-			"Paris",
-			"Bogota",
-			"Jakarta",
-		];
-
 		let randomlySelectedCities = [];
 		let duplicateCityCheck = [...randomCities];
 
@@ -72,14 +47,27 @@ function App() {
 		setUserInput(e.target.value);
 	};
 
+	// handles the submission of the form and handles the error thrown by an empty search query
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setSearchCity(userInput);
-		setSubmitStatus(true);
+		if (userInput === "") {
+			setSubmitStatus(false);
+			Swal.fire({
+				title: "Error!",
+				text: "Please enter a location!",
+				icon: "error",
+				confirmButtonText: "OK",
+				confirmButtonColor: "#002442",
+			});
+		} else {
+			setSearchCity(userInput);
+			setSubmitStatus(true);
+		}
 	};
 
 	// Axios call for main weather card
 	useEffect(() => {
+		// creating an empty array to store an individual weather object
 		const weatherObjectArray = [];
 		const apiKey = "9f1f728baaff4fa5a3714622212207";
 		const targetCity = searchCity;
@@ -90,14 +78,17 @@ function App() {
 				q: targetCity,
 			},
 		})
+			// pushing the weather data from the JSON object to the created array, setting weatherData to that array so that it can be mapped on display in component
 			.then((res) => {
 				weatherObjectArray.push(res.data);
 				setWeatherData(weatherObjectArray);
 				setUserInput("");
 			})
+			// error handling for locations that don't return any data, including gibberish queries
 			.catch(() => {
 				setUserInput("");
 				setSearchCity("Toronto");
+				setSubmitStatus(false);
 				Swal.fire({
 					title: "Error!",
 					text: "Unable to find that location. Please try again!",
@@ -106,29 +97,36 @@ function App() {
 					confirmButtonColor: "#002442",
 				});
 			});
+		// useEffect dependent on a new searchCity being registered in handleSubmit
 	}, [searchCity]);
 
 	// Axios call for random weather cards
 	useEffect(() => {
 		setSubmitStatus(false);
+		// creating an empty array to store random weather objects
 		let randomWeatherObjectArray = [];
 		const apiKey = "9f1f728baaff4fa5a3714622212207";
 		let randomlySelectedCities = selectRandomCities();
 
-		randomlySelectedCities.map((city) => {
-			return axios({
+		randomlySelectedCities.map(async (city) => {
+			const res = await axios({
 				url: `https://api.weatherapi.com/v1/current.json`,
 				params: {
 					key: apiKey,
 					q: city,
 				},
-			}).then((res) => {
-				randomWeatherObjectArray.push(res.data);
-				if (randomWeatherObjectArray.length === randomlySelectedCities.length){
-					setRandomWeatherData(randomWeatherObjectArray);
-				}
 			});
+			// pushing the random weather data from the JSON object to the created array, setting randomWeatherData to that array so that it can be mapped on display in component
+			randomWeatherObjectArray.push(res.data);
+			// checking that arrays are equal length before rendering, to avoid error of displaying fewer cards than intended
+			if (
+				randomWeatherObjectArray.length ===
+				randomlySelectedCities.length
+			) {
+				setRandomWeatherData(randomWeatherObjectArray);
+			}
 		});
+		// useEffect is dependent on submitStatus being set to true
 	}, [submitStatus]);
 
 	return (
@@ -143,22 +141,11 @@ function App() {
 				</div>
 			</header>
 			<main>
-				<section className="search">
-					<div className="wrapper">
-						<label htmlFor="weatherSearch"></label>
-						<form action="submit" onSubmit={handleSubmit}>
-							<input
-								type="text"
-								id="cityName"
-								onChange={handleChange}
-								value={userInput}
-								autoComplete="off"
-								placeholder="Search here..."
-							/>
-							<button type="submit">Search</button>
-						</form>
-					</div>
-				</section>
+				<Form
+					handleSubmit={handleSubmit}
+					handleChange={handleChange}
+					userInput={userInput}
+				/>
 				<section className="results">
 					<h2 className="subHeading">Outside your door...</h2>
 					<div className="wrapper cardContainer">
