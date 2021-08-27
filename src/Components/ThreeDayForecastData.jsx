@@ -1,5 +1,4 @@
 const ThreeDayForecastData = (props) => {
-	console.log(props);
 	return (
 		<div className="threeDayCard">
 			<h2>{props.date}</h2>
