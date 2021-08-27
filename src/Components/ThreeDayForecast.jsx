@@ -16,12 +16,6 @@ const ThreeDayForecast = (props) => {
 		setModalOpenStatus(false);
 	};
 
-	const handleEscKey = (e) => {
-		
-			setModalOpenStatus(false);
-		
-	};
-
 	const days = props.forecast;
 	return (
 		<div className="threeDayForecast">
@@ -31,7 +25,6 @@ const ThreeDayForecast = (props) => {
 			<Modal
 				isOpen={modalOpenStatus}
 				className={"threeDayModal"}
-				onEscapeKeyDown={() => handleEscKey}
 			>
 				<h1>Next 3 Days:</h1>
 				<div className="threeDayForecastContainer wrapper">

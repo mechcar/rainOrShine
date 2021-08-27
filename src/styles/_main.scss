@@ -20,7 +20,6 @@ body {
 
 .wrapper {
 	max-width: 1280px;
-	/* max-width: 100vw; */
 	width: 90%;
 	margin: 0 auto;
 }
@@ -126,10 +125,9 @@ button:hover {
 }
 
 .ReactModal__Body--open {
-	// overflow: hidden;
-	position: fixed;
 	width: 100%;
 	height: 100%;
+	display: flex;
 }
 
 .hourlyForecastContainer {
@@ -160,11 +158,12 @@ button:hover {
 
 .hourlyModal {
 	display: flex;
-	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: center;
 	background-color: #8e9ea7;
 	color: white;
+	max-height: 100vh;
+	overflow-y: auto;
 
 	h1 {
 		padding-bottom: 1.5%;
@@ -207,6 +206,8 @@ button:hover {
 	flex-direction: column;
 	background-color: #8e9ea7;
 	color: white;
+	max-height: 100vh;
+	overflow-y: auto;
 
 	h1 {
 		padding-bottom: 1.5%;
