@@ -2,7 +2,7 @@
 // Add 3 day weather info from weather API
 // Add sports page with Route/Link using weather API sports JSON option
 
-import "../../src/App.css";
+import "../../src/styles/_styles.scss"
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -72,10 +72,11 @@ function App() {
 		const apiKey = "9f1f728baaff4fa5a3714622212207";
 		const targetCity = searchCity;
 		axios({
-			url: `https://api.weatherapi.com/v1/current.json`,
+			url: `https://api.weatherapi.com/v1/forecast.json`,
 			params: {
 				key: apiKey,
 				q: targetCity,
+				days: 3,
 			},
 		})
 			// pushing the weather data from the JSON object to the created array, setting weatherData to that array so that it can be mapped on display in component
@@ -154,6 +155,7 @@ function App() {
 								<MainWeatherCard
 									currentConditions={i.current}
 									location={i.location}
+									forecast = {i.forecast}
 									key={i.location}
 								/>
 							);

@@ -1,3 +1,6 @@
+import HourlyForecast from "./HourlyForecast";
+import ThreeDayForecast from "./ThreeDayForecast";
+
 function MainWeatherCard(props) {
 	return (
 		<div className="weatherCard">
@@ -10,7 +13,7 @@ function MainWeatherCard(props) {
 					alt={props.currentConditions.condition.text}
 				/>
 			</div>
-			<div className="wrapper data">
+			<div className="data">
 				<div className="leftColumn">
 					<p>Local Time: {props.location.localtime.slice(10)}</p>
 					<p>{props.currentConditions.feelslike_c}°C</p>
@@ -21,6 +24,10 @@ function MainWeatherCard(props) {
 					<p>Wind Speed: {props.currentConditions.wind_kph} km/h</p>
 					<p>Wind Direction: {props.currentConditions.wind_dir}</p>
 				</div>
+			</div>
+			<div className="forecast">
+				<HourlyForecast forecast={props.forecast.forecastday[0]} />
+				<ThreeDayForecast forecast={props.forecast.forecastday} />
 			</div>
 		</div>
 	);
